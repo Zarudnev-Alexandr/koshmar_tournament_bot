@@ -20,12 +20,12 @@ async def save_user(event_from_user: User, dialog_manager: DialogManager, **kwar
     tg_id = event_from_user.id
     session: AsyncSession = dialog_manager.middleware_data.get('session')
 
+    if session is None:
+        return None
+
     inviter_id = None
     if dialog_manager.start_data:
         inviter_id = dialog_manager.start_data.get("inviter_id")
-
-    if session is None:
-        return None
 
     pubg_id = dialog_manager.find("pubg_id").get_value()
 
@@ -34,13 +34,24 @@ async def save_user(event_from_user: User, dialog_manager: DialogManager, **kwar
         "fio": f'{event_from_user.first_name} {event_from_user.last_name}',
         "username": event_from_user.username,
         "pubg_id": pubg_id,
+        "ticket_balance": 0
     }
 
     if inviter_id is not None:
         user_data["invited_tg_id"] = inviter_id
+        user_data["ticket_balance"] = 1
 
-    obj = models.User(**user_data)
-    session.add(obj)
+    new_user = models.User(**user_data)
+    session.add(new_user)
+
+    if inviter_id is not None:
+        inviter = await session.execute(
+            select(models.User).where(models.User.tg_id == inviter_id)
+        )
+        inviter = inviter.scalar_one_or_none()
+        if inviter:
+            inviter.ticket_balance += 1
+
     await session.commit()
 
     return {'pubg_id': pubg_id}

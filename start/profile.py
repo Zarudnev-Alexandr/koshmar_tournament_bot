@@ -1,5 +1,6 @@
 from aiogram_dialog import Dialog, Window
 from aiogram_dialog.widgets.kbd import Button
+from aiogram_dialog.widgets.media import StaticMedia
 from aiogram_dialog.widgets.text import Const, Format
 
 from start.getter import get_profile
@@ -8,6 +9,9 @@ from utils.switcher import switch_to_main_menu
 
 profile_dialog = Dialog(
     Window(
+        StaticMedia(
+            url="https://drive.google.com/uc?export=view&id=1Ju9xhA6gt03ByeiXagn_Ixa5kB2WmtTt",
+        ),
         Const('👤 Ваш профиль:'),
         Format(
             text=(
