@@ -99,8 +99,8 @@ async def get_admin_broadcast(dialog_manager: DialogManager, **kwargs):
 
         await dialog_manager.middleware_data['bot'].send_media_group(
             chat_id=dialog_manager.middleware_data['event_from_user'].id, media=media_list)
-    else:
-        await dialog_manager.event.answer(broadcast_text)
+    # else:
+    #     await dialog_manager.event.answer(broadcast_text)
 
     return {
         "photo_count": photo_count,
