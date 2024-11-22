@@ -61,7 +61,7 @@ async def save_tournament(event_from_user: User, dialog_manager: DialogManager, 
         f"👥 Количество мест: {total_slots}\n"
         f"🥇 Приз за первое место: {reward_first_place}\n\n"
         f"📝 Описание:\n{description}\n\n"
-        f"🔗 Ссылка на группу: {group_link}"
+        # f"🔗 Ссылка на группу: {group_link}"
     )
 
     button = InlineKeyboardButton(
