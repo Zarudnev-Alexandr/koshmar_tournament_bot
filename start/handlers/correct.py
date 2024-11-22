@@ -23,9 +23,9 @@ async def pubg_id_success(event, widget, dialog_manager: DialogManager, *_):
     text = str(text)
     session: AsyncSession = dialog_manager.middleware_data.get('session')
 
-    if not (text.startswith(("51", "52", "53")) and 8 <= len(text) <= 14 and text.isdigit()):
+    if not (text.startswith("5") and 8 <= len(text) <= 14 and text.isdigit()):
         await event.answer(
-            "Неверный формат PUBG ID. Убедитесь, что он начинается с '51', '52' или '53' и содержит от 8 до 14 цифр.")
+            "Неверный формат PUBG ID. Убедитесь, что он начинается с '5' и содержит от 8 до 14 цифр.")
         return
 
     # Проверка уникальности pubg_id в базе данных
